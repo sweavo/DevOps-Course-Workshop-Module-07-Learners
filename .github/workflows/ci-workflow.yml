@@ -16,6 +16,8 @@ jobs:
       run: |
         cd DotnetTemplate.Web
         npm ci 
+        echo '##[group]Steves special group'
+        echo hello mum
+        echo '##[endgroup]'
         npm run build
         help
-        
