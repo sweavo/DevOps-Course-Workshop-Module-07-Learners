@@ -11,17 +11,15 @@ jobs:
     - name: build the app
       run: dotnet build
 
-    - name: build npm
+    - name: npm dependencies and build
+      shell: bash
+      working-directory: DotnetTemplate.Web
+      run: |
+        npm ci 
+        npm run build
+
+    - name: run tests
       shell: bash
       run: |
         cd DotnetTemplate.Web
-        npm ci 
-        echo '##[group]Steves special group'
-        echo hello mum
-        echo '##[endgroup]'
-
-        echo '::group::Joshs special group'
-        echo bye dad
-        echo '::endgroup::'
-        npm run build
-        help
+        dotnet test
