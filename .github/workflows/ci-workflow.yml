@@ -14,7 +14,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3 # Adds a step to checkout the repository code
       
-      - name: check_clock
+      - name: Glance at the wall clock 
+        id: check_clock
         run: printf 'timestamp=%(%s)T\n' >> "$GITHUB_OUTPUT"
 
       - name: build the app
@@ -34,7 +35,8 @@ jobs:
       - name: lint the typescript
         run: npm run lint
 
-      - name: measure
+      - name: glance impatiently once more at the clock
+        id: measure
         run: |
           printf -v now '%(%s)T'
           duration=$((now - ${{ steps.check_clock.outputs.timestamp }}))
