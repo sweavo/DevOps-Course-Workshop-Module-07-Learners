@@ -14,6 +14,9 @@ jobs:
     steps:
     - uses: actions/checkout@v3 # Adds a step to checkout the repository code
 
+    - name: Secret reading check
+      run: echo ${{ secrets.FISH_NAME }}
+
     # - name: build the app
     #   run: dotnet build
 
@@ -31,12 +34,12 @@ jobs:
     # - name: lint the typescript
     #   run: npm run lint
     
-    - name: Microsoft Teams Notification
-      uses: skitionek/notify-microsoft-teams@master
-      if: always()
-      with:
-        webhook_url: ${{ secrets.MSTEAMS_WEBHOOKX }}
-        needs: ${{ toJson(needs) }}
-        job: ${{ toJson(job) }}
-        steps: ${{ toJson(steps) }}
-        dry_run: True
+    # - name: Microsoft Teams Notification
+    #   uses: skitionek/notify-microsoft-teams@master
+    #   if: always()
+    #   with:
+    #     webhook_url: ${{ secrets.MSTEAMS_WEBHOOKX }}
+    #     needs: ${{ toJson(needs) }}
+    #     job: ${{ toJson(job) }}
+    #     steps: ${{ toJson(steps) }}
+    #     dry_run: True
