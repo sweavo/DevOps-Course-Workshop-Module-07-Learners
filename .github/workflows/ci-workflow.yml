@@ -39,7 +39,7 @@ jobs:
         id: measure
         run: |
           printf -v now '%(%s)T'
-          printf 'duration=$(($now - ${{ steps.check_clock.outputs.timestamp }}))' >> "$GITHUB_OUTPUT"
+          printf 'duration=%s' $(($now - ${{ steps.check_clock.outputs.timestamp }})) >> "$GITHUB_OUTPUT"
 
       - name: Microsoft Teams Notification
         uses: skitionek/notify-microsoft-teams@master
