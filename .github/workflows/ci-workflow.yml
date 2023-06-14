@@ -18,8 +18,8 @@ jobs:
         id: check_clock
         run: printf 'timestamp=%(%s)T\n' >> "$GITHUB_OUTPUT"
 
-      # - name: build the app
-      #   run: dotnet build
+      - name: build the app
+        run: dotnet build
 
       # - name: npm dependencies and build
       #   run: |
@@ -49,4 +49,4 @@ jobs:
           needs: ${{ toJson(needs) }}
           job: ${{ toJson(job) }}
           steps: ${{ toJson(steps) }}
-          overwrite: "{title: `Job finished in ${{ steps.measure.outputs.duration }}`}"
+          overwrite: "{title: `Job finished in ${{ steps.measure.outputs.duration }} seconds`}"
