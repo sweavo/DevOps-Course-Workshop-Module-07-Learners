@@ -5,6 +5,12 @@ jobs:
   build:
     name: Build and test
     runs-on: ubuntu-latest      # Sets the build environment a machine with the latest Ubuntu installed
+
+    defaults:
+      run:
+        shell: bash
+        working-directory: DotnetTemplate.Web
+
     steps:
     - uses: actions/checkout@v3 # Adds a step to checkout the repository code
 
@@ -12,14 +18,11 @@ jobs:
       run: dotnet build
 
     - name: npm dependencies and build
-      shell: bash
-      working-directory: DotnetTemplate.Web
       run: |
         npm ci 
         npm run build
 
     - name: run tests
-      shell: bash
       run: |
         cd DotnetTemplate.Web
         dotnet test
