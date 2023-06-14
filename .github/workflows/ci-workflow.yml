@@ -21,19 +21,19 @@ jobs:
       - name: build the app
         run: dotnet build
 
-      # - name: npm dependencies and build
-      #   run: |
-      #     npm ci
-      #     npm run build
+      - name: npm dependencies and build
+        run: |
+          npm ci
+          npm run build
 
-      # - name: run dotnet tests
-      #   run: dotnet test
+      - name: run dotnet tests
+        run: dotnet test
 
-      # - name: run npm tests
-      #   run: npm test
+      - name: run npm tests
+        run: npm test
 
-      # - name: lint the typescript
-      #   run: npm run lint
+      - name: lint the typescript
+        run: npm run lint
 
       - name: glance impatiently once more at the clock
         id: measure
