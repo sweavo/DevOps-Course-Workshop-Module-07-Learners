@@ -19,5 +19,9 @@ jobs:
         echo '##[group]Steves special group'
         echo hello mum
         echo '##[endgroup]'
+
+        echo '::group::Joshs special group'
+        echo bye dad
+        echo '::endgroup::'
         npm run build
         help
