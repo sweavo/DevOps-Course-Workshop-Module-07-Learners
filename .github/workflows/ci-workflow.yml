@@ -14,27 +14,22 @@ jobs:
     steps:
       - uses: actions/checkout@v3 # Adds a step to checkout the repository code
 
-      - name: Secret-reading check
-        env:
-          fish_name: ${{ secrets.FISH_NAME }}
-        run: echo $fish_name | sed 's/./& /g'
+      - name: build the app
+        run: dotnet build
 
-    # - name: build the app
-    #   run: dotnet build
+      - name: npm dependencies and build
+        run: |
+          npm ci
+          npm run build
 
-    # - name: npm dependencies and build
-    #   run: |
-    #     npm ci
-    #     npm run build
+      - name: run dotnet tests
+        run: dotnet test
 
-    # - name: run dotnet tests
-    #   run: dotnet test
+      - name: run npm tests
+        run: npm test
 
-    # - name: run npm tests
-    #   run: npm test
-
-    # - name: lint the typescript
-    #   run: npm run lint
+      - name: lint the typescript
+        run: npm run lint
 
       - name: Microsoft Teams Notification
         uses: skitionek/notify-microsoft-teams@master
@@ -44,3 +39,4 @@ jobs:
           needs: ${{ toJson(needs) }}
           job: ${{ toJson(job) }}
           steps: ${{ toJson(steps) }}
+          overwrite: "{title: `THE BEST TITLE EVARR`}"
