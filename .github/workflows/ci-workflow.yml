@@ -24,5 +24,4 @@ jobs:
 
     - name: run tests
       run: |
-        cd DotnetTemplate.Web
         dotnet test
