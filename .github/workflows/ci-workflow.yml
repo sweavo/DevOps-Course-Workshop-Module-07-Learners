@@ -1,10 +1,10 @@
 name: CI
-on: [push]                      # Will make the workflow run every time you push to any branch
+on: [push] # Will make the workflow run every time you push to any branch
 
 jobs:
   build:
     name: Build and test
-    runs-on: ubuntu-latest      # Sets the build environment a machine with the latest Ubuntu installed
+    runs-on: ubuntu-latest # Sets the build environment a machine with the latest Ubuntu installed
 
     defaults:
       run:
@@ -12,31 +12,41 @@ jobs:
         working-directory: DotnetTemplate.Web
 
     steps:
-    - uses: actions/checkout@v3 # Adds a step to checkout the repository code
+      - uses: actions/checkout@v3 # Adds a step to checkout the repository code
+      
+      - name: Glance at the wall clock 
+        id: check_clock
+        run: printf 'timestamp=%(%s)T\n' >> "$GITHUB_OUTPUT"
 
-    # - name: build the app
-    #   run: dotnet build
+      - name: build the app
+        run: dotnet build
 
-    # - name: npm dependencies and build
-    #   run: |
-    #     npm ci 
-    #     npm run build
+      - name: npm dependencies and build
+        run: |
+          npm ci
+          npm run build
 
-    # - name: run dotnet tests
-    #   run: dotnet test
+      - name: run dotnet tests
+        run: dotnet test
 
-    # - name: run npm tests
-    #   run: npm test
+      - name: run npm tests
+        run: npm test
 
-    # - name: lint the typescript
-    #   run: npm run lint
-    
-    - name: Microsoft Teams Notification
-      uses: skitionek/notify-microsoft-teams@master
-      if: always()
-      with:
-        webhook_url: ${{ secrets.MSTEAMS_WEBHOOKX }}
-        needs: ${{ toJson(needs) }}
-        job: ${{ toJson(job) }}
-        steps: ${{ toJson(steps) }}
-        dry_run: True
+      - name: lint the typescript
+        run: npm run lint
+
+      - name: glance impatiently once more at the clock
+        id: measure
+        run: |
+          printf -v now '%(%s)T'
+          printf 'duration=%s' $(($now - ${{ steps.check_clock.outputs.timestamp }})) >> "$GITHUB_OUTPUT"
+
+      - name: Microsoft Teams Notification
+        uses: skitionek/notify-microsoft-teams@master
+        if: always()
+        with:
+          webhook_url: ${{ secrets.MSTEAMS_WEBHOOK }}
+          needs: ${{ toJson(needs) }}
+          job: ${{ toJson(job) }}
+          steps: ${{ toJson(steps) }}
+          overwrite: "{title: `Job finished in ${{ steps.measure.outputs.duration }} seconds`}"
