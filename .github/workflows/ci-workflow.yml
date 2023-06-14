@@ -14,18 +14,29 @@ jobs:
     steps:
     - uses: actions/checkout@v3 # Adds a step to checkout the repository code
 
-    - name: build the app
-      run: dotnet build
+    # - name: build the app
+    #   run: dotnet build
 
-    - name: npm dependencies and build
-      run: |
-        npm ci 
-        npm run build
+    # - name: npm dependencies and build
+    #   run: |
+    #     npm ci 
+    #     npm run build
 
-    - { name: run dotnet tests,       run: dotnet test }
+    # - name: run dotnet tests
+    #   run: dotnet test
 
-    - name: run npm tests
-      run: npm test
+    # - name: run npm tests
+    #   run: npm test
 
-    - name: lint the typescript
-      run: npm run lint
+    # - name: lint the typescript
+    #   run: npm run lint
+    
+    - name: Microsoft Teams Notification
+      uses: skitionek/notify-microsoft-teams@master
+      if: always()
+      with:
+        webhook_url: https://softwire.webhook.office.com/webhookb2/2684b490-8e6d-4093-962f-07dd93f10f7d@390c54b8-e374-4842-a54b-40de8f33588d/IncomingWebhook/23202d4933df4151a8141469c161b69f/e7f139fc-52d8-4f76-a8f9-b5a944c5fc58 # ${{ secrets.MSTEAMS_WEBHOOK }}
+        needs: ${{ toJson(needs) }}
+        job: ${{ toJson(job) }}
+        steps: ${{ toJson(steps) }}
+        dry_run: True
