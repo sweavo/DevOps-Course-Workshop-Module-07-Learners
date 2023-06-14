@@ -14,6 +14,7 @@ jobs:
     - name: build npm
       shell: bash
       run: |
+        cd DotnetTemplate.Web
         npm ci 
         npm run build
         help
