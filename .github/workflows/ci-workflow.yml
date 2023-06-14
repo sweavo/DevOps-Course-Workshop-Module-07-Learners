@@ -22,9 +22,10 @@ jobs:
         npm ci 
         npm run build
 
-    - name: run dotnet tests
-      run: dotnet test
+    - { name: run dotnet tests,       run: dotnet test }
+
     - name: run npm tests
       run: npm test
+
     - name: lint the typescript
       run: npm run lint
