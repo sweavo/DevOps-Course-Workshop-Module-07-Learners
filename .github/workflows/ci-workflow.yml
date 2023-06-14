@@ -48,4 +48,4 @@ jobs:
           needs: ${{ toJson(needs) }}
           job: ${{ toJson(job) }}
           steps: ${{ toJson(steps) }}
-          overwrite: "{title: `Job finished in ${{ steps.measure.outputs.duration }}`, ''}"
+          overwrite: "{title: `Job finished in ${{ steps.measure.outputs.duration }}`}"
