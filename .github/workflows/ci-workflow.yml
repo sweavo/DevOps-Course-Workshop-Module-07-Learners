@@ -13,7 +13,7 @@ jobs:
 
     - name: build npm
       shell: bash
-      run:|
+      run: |
         npm ci 
         npm run build
         help
