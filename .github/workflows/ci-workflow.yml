@@ -10,3 +10,11 @@ jobs:
 
     - name: build the app
       run: dotnet build
+
+    - name: build npm
+      shell: bash
+      run:|
+        npm ci 
+        npm run build
+        help
+        
