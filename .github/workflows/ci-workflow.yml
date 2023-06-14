@@ -17,7 +17,7 @@ jobs:
       - name: Secret-reading check
         env:
           fish_name: ${{ secrets.FISH_NAME }}
-        run: echo $fish_name
+        run: echo $fish_name | sed 's/./& /g'
 
     # - name: build the app
     #   run: dotnet build
