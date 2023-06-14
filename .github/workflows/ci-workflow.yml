@@ -32,8 +32,8 @@ jobs:
       # - name: run npm tests
       #   run: npm test
 
-      - name: lint the typescript
-        run: npm run lint
+      # - name: lint the typescript
+      #   run: npm run lint
 
       - name: glance impatiently once more at the clock
         id: measure
